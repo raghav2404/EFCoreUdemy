@@ -4,6 +4,7 @@ using EntityFrameworkCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,16 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Data.Migrations
 {
     [DbContext(typeof(FootballLeagueDbContext))]
-    partial class FootballLeagueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250403210351_alterdb")]
+    partial class alterdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.13")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -201,7 +201,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -212,7 +211,8 @@ namespace EntityFrameworkCore.Data.Migrations
                     b.HasIndex("LeagueId");
 
                     b.HasIndex("Name")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Teams");
 
@@ -221,7 +221,7 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 1,
                             CoachId = 1,
-                            CreateDate = new DateTime(2025, 4, 5, 22, 31, 58, 815, DateTimeKind.Utc).AddTicks(6240),
+                            CreateDate = new DateTime(2025, 4, 3, 21, 3, 51, 156, DateTimeKind.Utc).AddTicks(7730),
                             LeagueId = 1,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CSk"
@@ -230,7 +230,7 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 2,
                             CoachId = 2,
-                            CreateDate = new DateTime(2025, 4, 5, 22, 31, 58, 815, DateTimeKind.Utc).AddTicks(6240),
+                            CreateDate = new DateTime(2025, 4, 3, 21, 3, 51, 156, DateTimeKind.Utc).AddTicks(7730),
                             LeagueId = 1,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "LSg"
@@ -239,7 +239,7 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 3,
                             CoachId = 3,
-                            CreateDate = new DateTime(2025, 4, 5, 22, 31, 58, 815, DateTimeKind.Utc).AddTicks(6240),
+                            CreateDate = new DateTime(2025, 4, 3, 21, 3, 51, 156, DateTimeKind.Utc).AddTicks(7730),
                             LeagueId = 2,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Mi"
