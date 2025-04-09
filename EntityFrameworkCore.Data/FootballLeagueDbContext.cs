@@ -23,7 +23,16 @@ namespace EntityFrameworkCore.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=efcore;User Id=sa;Password=ragh2404;TrustServerCertificate=True;")
+            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=efcore;User Id=sa;Password=ragh2404;TrustServerCertificate=True;"
+
+                , optionsBuilder =>
+                { optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                    optionsBuilder.CommandTimeout(30);
+                    optionsBuilder.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(5),errorNumbersToAdd:null);
+      
+
+
+                })
                .UseLazyLoadingProxies()
                // .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)

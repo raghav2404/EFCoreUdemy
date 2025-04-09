@@ -24,6 +24,7 @@ namespace EFCore.Api
 
         // GET: api/Team
         [HttpGet]
+      
         public async Task<ActionResult<IEnumerable<TeamDto>>> GetTeams()
         {
             var teams =  await _context.Teams.Select(

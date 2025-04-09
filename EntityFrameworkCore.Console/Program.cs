@@ -7,12 +7,77 @@ using Microsoft.EntityFrameworkCore;
 var options = new DbContextOptions<FootballLeagueDbContext>();
 using var context = new FootballLeagueDbContext(options);
 
-var nl = new League
-{
-    Name = "nl"
-};
-await context.AddAsync(nl);
-await context.SaveChangesAsync();
+//var nl = new League
+//{
+//    Name = "nl"
+//};
+//await context.AddAsync(nl);
+//await context.SaveChangesAsync();
+
+var th = context.Teams.TemporalAll().Where(x => x.Id == 1).
+    Select(team => new
+    {
+        Name = team.Name,
+        ValueFrom = EF.Property<DateTime>(team, "PeriodStart"),
+                    ValueTo = EF.Property<DateTime>(team, "PeriodEnd")
+                   }).ToList();
+foreach(var record in th)
+    Console.WriteLine($"{record.Name}  {record.ValueFrom} {record.ValueTo}");
+
+
+//global query filter
+
+var league = context.Leagues.Find(1);
+league.IsDeleted = true;
+context.SaveChanges();
+var leagues = context.Leagues.ToList();
+
+
+
+
+//var transaction = context.Database.BeginTransaction();
+
+
+//var league = new League
+//{
+   
+//    Name = "Testing Transactions"
+//};
+
+//context.AddRange(league);
+//context.SaveChanges();
+//transaction.CreateSavepoint("createdLeague");
+//var coach = new Coach
+//{
+//    Name = "Transaction Coach"
+//};
+
+
+//context.AddRange(coach);
+//context.SaveChanges();
+
+//var teams = new List<Team>
+//{
+//    new Team
+//    {
+//        Name = "NT 1",
+//        LeagueId  = league.Id,
+//        CoachId = coach.Id
+//    }
+//};
+
+//context.AddRange(teams);
+//context.SaveChanges();
+
+//try
+//{
+//    transaction.Commit();
+//}
+//catch(Exception ex)
+//{
+//    transaction.RollbackToSavepoint("CreatedLeague");
+//    throw;
+//}
 
 
 

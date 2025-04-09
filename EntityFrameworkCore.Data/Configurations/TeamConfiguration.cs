@@ -1,4 +1,4 @@
-﻿using System.Reflection.Emit;
+﻿
 using EntityFrameworkCore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,6 +18,19 @@ namespace EntityFrameworkCore.Data.Configurations
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            teamBuilder.ToTable("Teams", b => b.IsTemporal());
+
+
+
+            //composite key
+            teamBuilder
+                .HasIndex(x => new { x.CoachId, x.LeagueId })
+                .IsUnique();
+
+
+            teamBuilder.Property(x => x.Name).HasMaxLength(100);
+
+
 
             teamBuilder
                 .HasMany(m => m.AwayMatches)
@@ -25,6 +38,7 @@ namespace EntityFrameworkCore.Data.Configurations
                 .HasForeignKey(X => X.AwayTeamId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
 
 
             teamBuilder

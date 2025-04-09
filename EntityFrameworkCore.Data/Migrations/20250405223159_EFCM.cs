@@ -11,7 +11,7 @@ namespace EntityFrameworkCore.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"");
+//migrationBuilder.Sql(@"");
 
 
             migrationBuilder.DropIndex(

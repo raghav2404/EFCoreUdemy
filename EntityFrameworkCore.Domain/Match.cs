@@ -1,9 +1,11 @@
-﻿namespace EntityFrameworkCore.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EntityFrameworkCore.Domain
 {
     public class Match:BaseDomainModel
 	{
-		
 
+        [Range(0,1000000)]
 		public decimal TicketPrice { get; set; }
 
 		public DateTime Date { get; set; }

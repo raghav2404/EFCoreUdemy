@@ -12,7 +12,9 @@ namespace EntityFrameworkCore.Data.Configurations
             { Id = 1, Name = "Dravid" },
             new Coach{ Id = 2,Name="Gambhir"},
             new Coach { Id = 3 , Name="Sachin"});
-        }
+
+
+          }
     }
 
 

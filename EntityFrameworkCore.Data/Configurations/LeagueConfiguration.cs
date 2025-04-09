@@ -8,6 +8,9 @@ namespace EntityFrameworkCore.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<League> leagueBuilder)
         {
+            //this predicate will be applied to all
+            //queries targeting this entity type - global query filter
+            leagueBuilder.HasQueryFilter(x => x.IsDeleted == false);
             leagueBuilder.HasData(
 
                 new League

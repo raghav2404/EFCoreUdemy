@@ -4,6 +4,7 @@ using EntityFrameworkCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Data.Migrations
 {
     [DbContext(typeof(FootballLeagueDbContext))]
-    partial class FootballLeagueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250409162338_temporaltable")]
+    partial class temporaltable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches", (string)null);
+                    b.ToTable("Coaches");
 
                     b.HasData(
                         new
@@ -101,7 +104,7 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leagues", (string)null);
+                    b.ToTable("Leagues");
 
                     b.HasData(
                         new
@@ -171,7 +174,7 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.ToTable("Matches", (string)null);
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.Domain.Team", b =>
@@ -204,16 +207,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("PeriodEnd")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodEnd");
-
-                    b.Property<DateTime>("PeriodStart")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodStart");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CoachId")
@@ -224,25 +217,14 @@ namespace EntityFrameworkCore.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Teams", (string)null);
-
-                    b.ToTable(tb => tb.IsTemporal(ttb =>
-                            {
-                                ttb.UseHistoryTable("TeamsHistory");
-                                ttb
-                                    .HasPeriodStart("PeriodStart")
-                                    .HasColumnName("PeriodStart");
-                                ttb
-                                    .HasPeriodEnd("PeriodEnd")
-                                    .HasColumnName("PeriodEnd");
-                            }));
+                    b.ToTable("Teams");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CoachId = 1,
-                            CreateDate = new DateTime(2025, 4, 9, 16, 38, 49, 170, DateTimeKind.Utc).AddTicks(4270),
+                            CreateDate = new DateTime(2025, 4, 9, 16, 23, 38, 752, DateTimeKind.Utc).AddTicks(410),
                             LeagueId = 1,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CSk"
@@ -251,7 +233,7 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 2,
                             CoachId = 2,
-                            CreateDate = new DateTime(2025, 4, 9, 16, 38, 49, 170, DateTimeKind.Utc).AddTicks(4270),
+                            CreateDate = new DateTime(2025, 4, 9, 16, 23, 38, 752, DateTimeKind.Utc).AddTicks(420),
                             LeagueId = 1,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "LSg"
@@ -260,7 +242,7 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 3,
                             CoachId = 3,
-                            CreateDate = new DateTime(2025, 4, 9, 16, 38, 49, 170, DateTimeKind.Utc).AddTicks(4280),
+                            CreateDate = new DateTime(2025, 4, 9, 16, 23, 38, 752, DateTimeKind.Utc).AddTicks(440),
                             LeagueId = 2,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Mi"
